@@ -1,4 +1,55 @@
 Using the default profile...
+Feature: display list of movies sorted by different criteria
+  As an avid moviegoer
+  So that I can quickly browse movies based on my preferences
+  I want to see movies sorted by title or release date
+
+  Background: movies have been added to database # features/sort_movie_list.feature:7
+    Given the following movies exist:            # features/step_definitions/movies_steps.rb:2
+      | title                   | rating | release_date |
+      | Aladdin                 | G      | 25-Nov-1992  |
+      | The Terminator          | R      | 26-Oct-1984  |
+      | When Harry Met Sally    | R      | 21-Jul-1989  |
+      | The Help                | PG-13  | 10-Aug-2011  |
+      | Chocolat                | PG-13  | 5-Jan-2001   |
+      | Amelie                  | R      | 25-Apr-2001  |
+      | 2001: A Space Odyssey   | G      | 6-Apr-1968   |
+      | The Incredibles         | PG     | 5-Nov-2004   |
+      | Raiders of the Lost Ark | PG     | 12-Jun-1981  |
+      | Chicken Run             | G      | 21-Jun-2000  |
+    And I am on the RottenPotatoes home page     # features/step_definitions/web_steps.rb:44
+    Then 10 seed movies should exist             # features/step_definitions/movies_steps.rb:24
+
+  Scenario: sort movies alphabetically                         # features/sort_movie_list.feature:25
+    When I follow "Movie Title"                                # features/step_definitions/web_steps.rb:56
+      # your steps here
+    Then I should see "2001: A Space Odyssey" before "Aladdin" # features/step_definitions/movies_steps.rb:8
+    Then I should see "Aladdin" before "Amelie"                # features/step_definitions/movies_steps.rb:8
+    Then I should see "Chicken Run" before "Chocolat"          # features/step_definitions/movies_steps.rb:8
+    Then I should see "The Help" before "The Incredibles"      # features/step_definitions/movies_steps.rb:8
+
+  Scenario: sort movies in increasing order of release date                                          # features/sort_movie_list.feature:33
+    When I follow "Release Date"                                                                     # features/step_definitions/web_steps.rb:56
+      # your steps here
+    Then I should see "More about 2001: A Space Odyssey" before "More about Raiders of the Lost Ark" # features/step_definitions/movies_steps.rb:8
+    Then I should see "More about The Terminator" before "More about When Harry Met Sally"           # features/step_definitions/movies_steps.rb:8
+    Then I should see "More about Aladdin" before "More about Chicken Run"                           # features/step_definitions/movies_steps.rb:8
+    Then I should see "More about Raiders of the Lost Ark" before "More about Chocolat"              # features/step_definitions/movies_steps.rb:8
+
+  Scenario: filter and sort a movie by release date                                    # features/sort_movie_list.feature:42
+    Given I am on the home page                                                        # features/step_definitions/web_steps.rb:44
+    When I uncheck the following ratings: PG-13, NC-17, R                              # features/step_definitions/movies_steps.rb:18
+    And I should see "Aladdin"                                                         # features/step_definitions/web_steps.rb:105
+    When I follow "Release Date"                                                       # features/step_definitions/web_steps.rb:56
+    Then I should see "Raiders of the Lost Ark" before "Aladdin"                       # features/step_definitions/movies_steps.rb:8
+    When I follow "Release Date"                                                       # features/step_definitions/web_steps.rb:56
+    Then I should see "More about Raiders of the Lost Ark" before "More about Aladdin" # features/step_definitions/movies_steps.rb:8
+
+3 scenarios (3 passed)
+26 steps (26 passed)
+0m0.555s
+Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 56 / 59 LOC (94.92%) covered.
+Using the default profile...
 Feature: display list of movies filtered by MPAA rating
   As a concerned parent
   So that I can quickly browse movies appropriate for my family
@@ -53,8 +104,8 @@ Feature: display list of movies filtered by MPAA rating
 
 3 scenarios (3 passed)
 23 steps (23 passed)
-0m0.627s
-Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 37 / 59 LOC (62.71%) covered.
+0m0.552s
+Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 54 / 59 LOC (91.53%) covered.
 Using the default profile...
 Feature: search for movies by director
   As a movie buff
@@ -122,56 +173,5 @@ Feature: search for movies by director
 
 7 scenarios (7 passed)
 44 steps (44 passed)
-0m0.724s
-Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 49 / 59 LOC (83.05%) covered.
-Using the default profile...
-Feature: display list of movies sorted by different criteria
-  As an avid moviegoer
-  So that I can quickly browse movies based on my preferences
-  I want to see movies sorted by title or release date
-
-  Background: movies have been added to database # features/sort_movie_list.feature:7
-    Given the following movies exist:            # features/step_definitions/movies_steps.rb:2
-      | title                   | rating | release_date |
-      | Aladdin                 | G      | 25-Nov-1992  |
-      | The Terminator          | R      | 26-Oct-1984  |
-      | When Harry Met Sally    | R      | 21-Jul-1989  |
-      | The Help                | PG-13  | 10-Aug-2011  |
-      | Chocolat                | PG-13  | 5-Jan-2001   |
-      | Amelie                  | R      | 25-Apr-2001  |
-      | 2001: A Space Odyssey   | G      | 6-Apr-1968   |
-      | The Incredibles         | PG     | 5-Nov-2004   |
-      | Raiders of the Lost Ark | PG     | 12-Jun-1981  |
-      | Chicken Run             | G      | 21-Jun-2000  |
-    And I am on the RottenPotatoes home page     # features/step_definitions/web_steps.rb:44
-    Then 10 seed movies should exist             # features/step_definitions/movies_steps.rb:24
-
-  Scenario: sort movies alphabetically                         # features/sort_movie_list.feature:25
-    When I follow "Movie Title"                                # features/step_definitions/web_steps.rb:56
-      # your steps here
-    Then I should see "2001: A Space Odyssey" before "Aladdin" # features/step_definitions/movies_steps.rb:8
-    Then I should see "Aladdin" before "Amelie"                # features/step_definitions/movies_steps.rb:8
-    Then I should see "Chicken Run" before "Chocolat"          # features/step_definitions/movies_steps.rb:8
-    Then I should see "The Help" before "The Incredibles"      # features/step_definitions/movies_steps.rb:8
-
-  Scenario: sort movies in increasing order of release date                                          # features/sort_movie_list.feature:33
-    When I follow "Release Date"                                                                     # features/step_definitions/web_steps.rb:56
-      # your steps here
-    Then I should see "More about 2001: A Space Odyssey" before "More about Raiders of the Lost Ark" # features/step_definitions/movies_steps.rb:8
-    Then I should see "More about The Terminator" before "More about When Harry Met Sally"           # features/step_definitions/movies_steps.rb:8
-    Then I should see "More about Aladdin" before "More about Chicken Run"                           # features/step_definitions/movies_steps.rb:8
-    Then I should see "More about Raiders of the Lost Ark" before "More about Chocolat"              # features/step_definitions/movies_steps.rb:8
-
-  Scenario: filter and sort a movie by release date                                    # features/sort_movie_list.feature:42
-    Given I am on the home page                                                        # features/step_definitions/web_steps.rb:44
-    When I uncheck the following ratings: PG-13, NC-17, R                              # features/step_definitions/movies_steps.rb:18
-    And I should see "Aladdin"                                                         # features/step_definitions/web_steps.rb:105
-    When I follow "Release Date"                                                       # features/step_definitions/web_steps.rb:56
-    Then I should see "Raiders of the Lost Ark" before "Aladdin"                       # features/step_definitions/movies_steps.rb:8
-    When I follow "Release Date"                                                       # features/step_definitions/web_steps.rb:56
-    Then I should see "More about Raiders of the Lost Ark" before "More about Aladdin" # features/step_definitions/movies_steps.rb:8
-
-3 scenarios (3 passed)
-26 steps (26 passed)
-0m0.476s
-Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 39 / 59 LOC (66.1%) covered.
+0m0.769s
+Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 51 / 59 LOC (86.44%) covered.
