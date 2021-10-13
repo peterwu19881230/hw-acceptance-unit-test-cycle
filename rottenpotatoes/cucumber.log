@@ -47,7 +47,7 @@ Feature: display list of movies sorted by different criteria
 
 3 scenarios (3 passed)
 26 steps (26 passed)
-0m0.555s
+0m0.439s
 Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 56 / 59 LOC (94.92%) covered.
 Using the default profile...
 Feature: display list of movies filtered by MPAA rating
@@ -104,7 +104,7 @@ Feature: display list of movies filtered by MPAA rating
 
 3 scenarios (3 passed)
 23 steps (23 passed)
-0m0.552s
+0m0.604s
 Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 54 / 59 LOC (91.53%) covered.
 Using the default profile...
 Feature: search for movies by director
@@ -173,5 +173,5 @@ Feature: search for movies by director
 
 7 scenarios (7 passed)
 44 steps (44 passed)
-0m0.769s
+0m0.699s
 Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/rottenpotatoes/coverage. 51 / 59 LOC (86.44%) covered.
